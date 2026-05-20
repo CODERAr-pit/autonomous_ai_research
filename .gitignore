@@ -1,0 +1,12 @@
+
+venv/
+.venv/
+env/
+
+# Python Cache (this works for any __pycache__ inside backend/)
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Backend Environment Variables
+backend/.env
