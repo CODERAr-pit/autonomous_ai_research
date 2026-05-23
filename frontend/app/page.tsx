@@ -5,20 +5,24 @@ interface ResponseData {
   status?: string;
   goal?: string;
   message?: string;
+  timeHeader?: string|null;
 }
 
 export default function Home() {
 const [response, setResponse] = useState<ResponseData>({});
 async function handleclick() {
-  const response =await fetch('http://127.0.0.1:8000/run-agent',{
+  const res: Response =await fetch('http://127.0.0.1:8000/run-agent',{
     method:'POST',
     headers:{
       'content-type':'application/json'
     },
     body:JSON.stringify({"goal":"Write a poem on the topic of AI"})
     })
-    const data = await response.json()
+    const time = res.headers.get("Total_access_time");
+    console.log("Time taken for the request:", time);
+    const data = await res.json()
     setResponse(data);
+    setResponse({...data,timeHeader:time});
 
   }
   return (
@@ -30,6 +34,7 @@ async function handleclick() {
       {response?<div>
         <h2 className="text-2xl font-bold">Response:</h2>
         <p>{response.message}</p>
+        <p>Total Access Time : {response.timeHeader}</p>
       </div>:null}
     </div>
   );

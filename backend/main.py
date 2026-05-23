@@ -1,6 +1,7 @@
-from fastapi import FastAPI
+from fastapi import FastAPI,Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+import time
 
 app = FastAPI()
 
@@ -9,7 +10,17 @@ app.add_middleware(
     allow_origins=["http://localhost:3000"],
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["Total_access_time"]
 )
+
+@app.middleware("http")
+async def add_cors_headers(request: Request, call_next):
+    start_time = time.time()
+    response = await call_next(request)
+    time_taken = time.time() - start_time
+    print(f"Time taken for the request: {time_taken:.4f} seconds")
+    response.headers["Total_access_time"] = str(time_taken)
+    return response
 
 class ResearchRequest(BaseModel):
     goal: str
