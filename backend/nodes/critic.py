@@ -6,9 +6,9 @@ def critic_node(state: AgentState) -> dict:
     
     messages = [
         SystemMessage(content="""You are a critic. Evaluate the report strictly.
-Reply with ONLY:
-APPROVE - if report is comprehensive and answers the goal
-REJECT - if report is missing key information"""),
+        Reply with ONLY:
+        APPROVE - if report is comprehensive and answers the goal
+        REJECT - if report is missing key information"""),
         HumanMessage(content=f"Goal: {state['goal']}\nReport: {state['draft_report']}")
     ]
     

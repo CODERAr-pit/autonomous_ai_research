@@ -37,23 +37,24 @@ agent_builder.add_conditional_edges(
     ["researcher", END]
 )
 
-agent = agent_builder.compile()
+# agent = agent_builder.compile()
 
 # graph_image_data = agent.get_graph(xray=True).draw_mermaid_png()
 # with open("agent_graph.png", "wb") as f:
 #     f.write(graph_image_data)
 # print("Graph saved as agent_graph.png! Check your folder.")
-# --- the Agent ---
-user_prompt = "Give a detailed comparison between Rohit and Virat , who is better for World Cup, what was their last ipl score?."
+# # --- the Agent ---
 
-initial_state = {
-    "goal": user_prompt,   
-    "research_notes": [],  
-    "attempts": 0          
-}
+# user_prompt = "Give a detailed comparison between Rohit and Virat , who is better for World Cup, what was their last ipl score?."
 
-print("Starting autonomous research...")
-final_state = agent.invoke(initial_state)
+# initial_state = {
+#     "goal": user_prompt,   
+#     "research_notes": [],  
+#     "attempts": 0          
+# }
 
-print("\n--- FINAL REPORT ---")
-print(final_state.get("draft_report", "No report generated."))
+# print("Starting autonomous research...")
+# # final_state = agent.invoke(initial_state)
+
+# print("\n--- FINAL REPORT ---")
+# print(final_state.get("draft_report", "No report generated."))

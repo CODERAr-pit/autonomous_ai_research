@@ -1,10 +1,12 @@
+from urllib import request
+
 from fastapi import FastAPI,Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import time
-
+from graph import agent_builder
 app = FastAPI()
-
+agent = agent_builder.compile()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000"],
@@ -35,10 +37,16 @@ class ResearchResponse(BaseModel):
 async def root():
     return {"message": "Welcome to the Research API!"}
 
-@app.post("/run-agent", response_model=ResearchResponse)
-async def run_agent(request: ResearchRequest):
+@app.get("/run-agent", response_model=ResearchResponse)
+async def run_agent(query:str):
+    initial_state = {
+        "goal": query,   
+        "research_notes": [],  
+        "attempts": 0          
+}
+    final_state = agent.invoke(initial_state)
     return ResearchResponse(
-        status="received",
-        goal=request.goal,
-        message=f"Processing your research goal: {request.goal}"
+        status="success",
+        goal=query,
+        message=final_state.get("draft_report", "No report generated.")
     )

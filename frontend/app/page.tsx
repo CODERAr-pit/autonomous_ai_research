@@ -1,6 +1,6 @@
 'use client'
 import { useState } from "react";
-
+import ReactMarkdown from 'react-markdown';
 interface ResponseData {
   status?: string;
   goal?: string;
@@ -11,12 +11,11 @@ interface ResponseData {
 export default function Home() {
 const [response, setResponse] = useState<ResponseData>({});
 async function handleclick() {
-  const res: Response =await fetch('http://127.0.0.1:8000/run-agent',{
-    method:'POST',
+  const res: Response =await fetch('http://127.0.0.1:8000/run-agent/?query=Weather of darbhanga ',{
+    method:'GET',
     headers:{
       'content-type':'application/json'
-    },
-    body:JSON.stringify({"goal":"Write a poem on the topic of AI"})
+    }
     })
     const time = res.headers.get("Total_access_time");
     console.log("Time taken for the request:", time);
@@ -33,7 +32,7 @@ async function handleclick() {
       </div>
       {response?<div>
         <h2 className="text-2xl font-bold">Response:</h2>
-        <p>{response.message}</p>
+        <ReactMarkdown>{response.message}</ReactMarkdown>
         <p>Total Access Time : {response.timeHeader}</p>
       </div>:null}
     </div>
