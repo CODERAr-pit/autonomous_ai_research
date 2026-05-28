@@ -33,18 +33,18 @@ agent_builder.add_edge("writer", "critic")           # Writer gives draft to Cri
 #  the magic loop!
 agent_builder.add_conditional_edges(
     "critic", 
-    route_after_critic
+    route_after_critic,
+    ["researcher", END]
 )
 
-# Compile
 agent = agent_builder.compile()
 
-graph_image_data = agent.get_graph(xray=True).draw_mermaid_png()
-with open("agent_graph.png", "wb") as f:
-    f.write(graph_image_data)
-print("Graph saved as agent_graph.png! Check your folder.")
+# graph_image_data = agent.get_graph(xray=True).draw_mermaid_png()
+# with open("agent_graph.png", "wb") as f:
+#     f.write(graph_image_data)
+# print("Graph saved as agent_graph.png! Check your folder.")
 # --- the Agent ---
-user_prompt = "Give a detailed comparison between Rohit and Virat , who is better for World Cup?."
+user_prompt = "Give a detailed comparison between Rohit and Virat , who is better for World Cup, what was their last ipl score?."
 
 initial_state = {
     "goal": user_prompt,   
