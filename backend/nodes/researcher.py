@@ -23,8 +23,14 @@ model_with_tools = researcher_llm.bind_tools(tools)
 def researcher_node(state: AgentState) -> dict:
     notes = "\n".join(state["research_notes"])
     
+    # 1. Soften the System Prompt!
     messages = [
-        SystemMessage(content="You are a researcher. Find detailed information to answer the goal. YOU MUST USE YOUR SEARCH TOOL to find real data."),
+        SystemMessage(content=(
+            "You are a researcher. You have access to a web search tool. "
+            "If the goal requires current events, real-world data, or facts you do not know, use the tool. "
+            "If the goal is conversational (e.g., greetings, small talk) or you already know the answer, DO NOT use the tool. "
+            "Always use strict JSON for tool calls."
+        )),
         HumanMessage(content=f"Goal: {state['goal']}\nPlan so far: {notes}")
     ]
     
