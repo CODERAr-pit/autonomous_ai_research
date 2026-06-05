@@ -13,7 +13,7 @@ TAVILY_API_KEY = os.getenv("TAVILY_API_KEY")
 def search_tavily(query: str):
     """Searches the web for current, up-to-date information."""
     tavily_client = TavilyClient(api_key=TAVILY_API_KEY)
-    response = tavily_client.search(query)
+    response = tavily_client.search(query=query,max_results=3,search_depth="basic")
     return response
 
 tools = [search_tavily]
@@ -26,7 +26,7 @@ def researcher_node(state: AgentState) -> dict:
     # 1. Soften the System Prompt!
     messages = [
         SystemMessage(content=(
-            "You are a researcher. You have access to a web search tool. "
+            "You are a researcher. You have access to a web search tool."
             "If the goal requires current events, real-world data, or facts you do not know, use the tool. "
             "If the goal is conversational (e.g., greetings, small talk) or you already know the answer, DO NOT use the tool. "
             "Always use strict JSON for tool calls."

@@ -3,10 +3,11 @@ from langchain_groq import ChatGroq
 load_dotenv(find_dotenv())
 # Production: Claude Sonnet for writer, Gemini for critic
 
-orchestrator_llm = ChatGroq(model="llama-3.3-70b-versatile")
-researcher_llm   = ChatGroq(model="llama-3.3-70b-versatile")
-writer_llm       = ChatGroq(model="llama-3.3-70b-versatile")
-critic_llm       = ChatGroq(model="llama-3.3-70b-versatile")
+classifier_llm = ChatGroq(model="llama-3.3-70b-versatile",max_tokens=50)
+orchestrator_llm = ChatGroq(model="llama-3.3-70b-versatile",max_tokens=200)
+researcher_llm   = ChatGroq(model="llama-3.3-70b-versatile",max_tokens=600)
+writer_llm       = ChatGroq(model="llama-3.3-70b-versatile",max_tokens=1000)
+critic_llm       = ChatGroq(model="llama-3.3-70b-versatile",max_tokens=50)
 
 # Production config 
 

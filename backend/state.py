@@ -8,4 +8,5 @@ class AgentState(TypedDict):
     critic_decision: str                  # approve or reject
     critic_feedback: str                  # The critic's exact words
     current_agent: str                    # Who is currently running
-    attempts: int                         # How many times it has looped
+    attempts: int 
+    search:str                        # How many times it has looped

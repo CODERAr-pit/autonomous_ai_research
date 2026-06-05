@@ -8,7 +8,7 @@ from nodes.orchestrator import orchestrator_node
 from nodes.researcher import researcher_node  # Don't forget the researcher!
 from nodes.writer import writer_node
 from nodes.critic import critic_node
-
+from nodes.classifier import classifier_node  # New Classifier node
 def route_after_critic(state: AgentState):
     if state.get("critic_decision") == "approve":
         return END           # If good, finish the program
@@ -19,13 +19,15 @@ def route_after_critic(state: AgentState):
 agent_builder = StateGraph(AgentState)
 
 #  nodes
+agent_builder.add_node("classifier", classifier_node) # Added Classifier
 agent_builder.add_node("orchestrator", orchestrator_node)
 agent_builder.add_node("researcher", researcher_node) # Added Researcher
 agent_builder.add_node("writer", writer_node)
 agent_builder.add_node("critic", critic_node)
 
 # ---Edges ---
-agent_builder.add_edge(START, "orchestrator")
+agent_builder.add_edge(START, "classifier")
+agent_builder.add_edge("classifier", "orchestrator")
 agent_builder.add_edge("orchestrator", "researcher") # Orchestrator gives plan to Researcher
 agent_builder.add_edge("researcher", "writer")       # Researcher gives notes to Writer
 agent_builder.add_edge("writer", "critic")           # Writer gives draft to Critic

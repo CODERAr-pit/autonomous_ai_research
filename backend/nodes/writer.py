@@ -16,6 +16,7 @@ def writer_node(state: AgentState) -> dict:
         "3. Use clean Markdown headings, bullet points, or bold text for readability, but jump straight into the content."
         "4. Do not write at top with explicitly mentioning the research notes, just synthesize them into a final report.\n\n"
         "5. Try to be as concise as possible while still fully answering the question. The user wants a polished final report, not a verbose essay."
+        "6. Do not include any information from your own , simply synthesize the research notes into a final report that directly answers the goal.\n\n"
         "Remember, your output should be a polished, final report that directly answers the goal based on the research notes provided. Do not include any extraneous information or commentary."),
         HumanMessage(content=f"Goal: {state['goal']}\nResearch: {notes}")
     ]

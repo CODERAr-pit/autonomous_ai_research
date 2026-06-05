@@ -9,13 +9,15 @@ def orchestrator_node(state: AgentState) -> dict:
     today = datetime.now().strftime("%A, %B %d, %Y")
     system_instructions = (
         f"You are a research orchestrator. Today's date is {today}. "
-        "Break the goal into clear research steps. You have access to tools. "
+        "Break the goal into clear research steps. You have access to tools. Before You go "
+        "for search look after the search content provided whether the search is simple or complex. If it is simple "
+        "then you can directly answer the question without going for search. If it is complex then you have to go for search. "
         "You must ALWAYS use the provided OpenAI-compatible JSON schema for tool calls. "
         "Under NO circumstances should you output raw XML tags like <function=search>."
     )
     messages = [
         SystemMessage(content=system_instructions),
-        HumanMessage(content=f"Goal: {state.get('goal', '')}")
+        HumanMessage(content=f"Goal: {state.get('goal', '')}\nSearch: {state.get('search', '')}")
     ]
     # from crashing if Groq throws a 400 or 500 error
     try:
