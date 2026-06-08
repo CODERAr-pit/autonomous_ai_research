@@ -49,7 +49,7 @@ app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["https://autonomous-ai-research.vercel.app/"],
     allow_methods=["*"],
     allow_headers=["*"],
     expose_headers=["Total_access_time"]
