@@ -82,7 +82,7 @@ export default function Home() {
     ]);
 
     try {
-      const res = await fetch(`http://127.0.0.1:8000/run-agent-stream`, {
+      const res = await fetch(`https://autonomous-ai-research.onrender.com/run-agent-stream`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ goal: userQuery, thread_id: threadId })
