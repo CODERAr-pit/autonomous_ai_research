@@ -9,4 +9,5 @@ class AgentState(TypedDict):
     critic_feedback: str                  # The critic's exact words
     current_agent: str                    # Who is currently running
     attempts: int 
-    search:str                        # How many times it has looped
+    search:str
+    thread_id: str                       

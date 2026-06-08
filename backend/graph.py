@@ -5,10 +5,10 @@ from langgraph.graph import StateGraph, START, END
 
 # Import all your workers
 from nodes.orchestrator import orchestrator_node
-from nodes.researcher import researcher_node  # Don't forget the researcher!
+from nodes.researcher import researcher_node  
 from nodes.writer import writer_node
 from nodes.critic import critic_node
-from nodes.classifier import classifier_node  # New Classifier node
+from nodes.classifier import classifier_node  
 def route_after_critic(state: AgentState):
     if state.get("critic_decision") == "approve":
         return END           # If good, finish the program

@@ -6,7 +6,6 @@ def writer_node(state: AgentState) -> dict:
     # 1. Read all the accumulated findings from the whiteboard
     notes = "\n".join(state["research_notes"])
     
-    # 2. Package the context using proper Message objects
     messages = [
         SystemMessage(content="You are an expert technical writer. Your job is to take raw research notes and compile "
         "them into a beautiful, highly refined, professional final answer.\n\n"
