@@ -28,7 +28,7 @@ async def lifespan(app: FastAPI):
     global pool, checkpointer, agent
     
     # Safely initialize the pool
-    pool = AsyncConnectionPool(os.getenv("DATABASE_URL"), kwargs={"autocommit": True}, open=False)
+    pool = AsyncConnectionPool(os.getenv("DATABASE_URL"), kwargs={"autocommit": True,"prepare_threshold": None}, open=False)
     await pool.open()
     
     # Now it is safe to create the checkpointer because the event loop exists
